@@ -3,25 +3,30 @@ import mongoose from "mongoose";
 import userRouter from "./routers/userRouter.js";
 import authenticateUser from "./middlewares/authentication.js";
 import productRouter from "./routers/productRouter.js";
+import cors from "cors"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 const app = express();
 
 
-const mongodbURI = "mongodb+srv://admin:1234@cluster0.vefzq4k.mongodb.net/icomputers?appName=Cluster0"
+const mongodbURI = process.env.MONGO_URI
 
 mongoose.connect(mongodbURI).then(
     ()=>{
         console.log("Connected to MongoDB");
     }
 )
+app.use(cors())
 
 app.use( express.json() )
 
 app.use(authenticateUser)
 
 
-app.use("/users",userRouter)
-app.use("/products",productRouter)
+app.use("/api/users",userRouter)
+app.use("/api/products",productRouter)
 
 
 app.listen(3000, (req,res) => {
