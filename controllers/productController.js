@@ -48,14 +48,14 @@ export async function createProduct(req, res) {
 }
 
 export async function getAllProducts(req, res) {
+    console.log("Fetching products....")
 	try {
 		if (isAdmin(req)) {
 			const products = await Product.find();
 
 			res.json(products);
 		}else {
-            const products = await Product.find({ isAvailble: true });
-
+            const products = await Product.find({ isAvailable: true });
             res.json(products);
         }
 	} catch (error) {
