@@ -135,7 +135,7 @@ export async function getProductById(req,res){
                 message : "Product not found"
             })
         }else{
-            if(product.isAvailble){
+            if(product.isAvailable){
                 res.json(product)
             }else{
                 if(isAdmin(req)){
